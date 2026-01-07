@@ -5,7 +5,7 @@
  * @fileoverview Trivia game final project
  */
 
-const _questions = [
+const questions = [
   // ---- Computer Science ----
   ["What does CPU stand for?", "central processing unit"],
   ["What loop is used when you know how many times to repeat?", "for"],
@@ -41,5 +41,7 @@ const _questions = [
   ["Which instrument has 88 keys?", "piano"],
   ["What is the hardest natural substance on Earth?", "diamond"],
 ];
+
+console.log(questions);
 
 console.log("\nDone.");
