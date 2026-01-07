@@ -5,7 +5,7 @@
  * @fileoverview Trivia game final project
  */
 
-let questions = [
+const _questions = [
   // ---- Computer Science ----
   ["What does CPU stand for?", "central processing unit"],
   ["What loop is used when you know how many times to repeat?", "for"],
@@ -39,7 +39,7 @@ let questions = [
   ["What is Arachnophobia a fear of?", "spiders"],
   ["In what year did the Titanic sink?", "1912"],
   ["Which instrument has 88 keys?", "piano"],
-  ["What is the hardest natural substance on Earth?", "diamond"]
+  ["What is the hardest natural substance on Earth?", "diamond"],
 ];
 
 console.log("\nDone.");
