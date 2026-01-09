@@ -8,8 +8,12 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
-	"math/rand/v2"
+	"math/rand"
+	"os"
+	"strconv"
+	"strings"
 )
 
 // each question has the prompt and the correct response
@@ -55,19 +59,45 @@ func shuffle(list [][]string) {
 	// loop through the list
 	for counter := 0; counter < len(list); counter++ {
 		// randomly pick from the list
-		loop := rand.IntN(len(list))
+		loop := rand.Intn(len(list))
 		// swap the two items picked from the randomizer
 		list[counter], list[loop] = list[loop], list[counter]
 	}
 }
 
 func main() {
+
+	reader := bufio.NewReader(os.Stdin)
+
 	// shuffle questions
 	shuffle(questions)
-	fmt.Println(questions)
 	// declare variables
-	// var total int
-	// var score int = 0
+	var totalString string
+	var totalInt int
+	var score int = 0
 
+	fmt.Print("How many questions would you like to answer(1-25)? ")
+	totalString, _ = reader.ReadString('\n')
+	totalString = strings.TrimSpace(totalString)
+	totalInt, _ = strconv.Atoi(totalString)
+
+	for counter := 0; counter < totalInt; counter++ {
+		fmt.Println("\n" + questions[counter][0])
+		var input string
+		input, _ = reader.ReadString('\n')
+		input = strings.TrimSpace(input)
+
+		input = strings.ToLower(strings.TrimSpace(input))
+
+		if input == questions[counter][1] {
+			fmt.Println("Correct!")
+			score++
+		} else {
+			fmt.Println("Incorrect!")
+		}
+	}
+
+	var percent float64 = float64(score) / float64(totalInt) * 100
+	fmt.Printf("\nGame Over!\nFinal Score: %d/%d(%.2f%%)\n", score, totalInt, percent)
 	fmt.Println("\nDone.")
 }

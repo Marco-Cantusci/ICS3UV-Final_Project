@@ -5,7 +5,7 @@
  * @fileoverview Trivia game final project
  */
 // Declare variables
-// let score: number = 0;
+let score: number = 0;
 
 const questions: string[][] = [
   // ---- Computer Science ----
@@ -23,7 +23,7 @@ const questions: string[][] = [
   ["What is 125 divided by 5?", "25"],
 
   // ---- Science ----
-  ["What is the compound name for water?", "H2O"],
+  ["What is the compound name for water?", "h2o"],
   ["What planet is closest to the Sun?", "mercury"],
   ["Which is the most abundant element in the universe?", "hydrogen"],
   ["What do you call an animal that eats a variety of other organisms, including plants, animals and fungi?", "omnivore"],
@@ -53,9 +53,32 @@ function shuffle(list: string[][]): void {
 shuffle(questions);
 
 // input amount of questions
-const total: string =
+const totalString: string =
   prompt("How many questions would you like to answer(1-25)?") || ("25");
 
-console.log(questions);
-console.log(total);
+const totalNumber: number = parseInt(totalString);
+
+// question loop
+for (let counter: number = 0; counter < totalNumber; counter++) {
+  // process user input
+  const input = prompt(questions[counter][0]);
+  if (input === null) break;
+  const userInput = input.toLowerCase().trim();
+
+  // compare users answer to question answer
+  if (userInput === questions[counter][1]) {
+    console.log("Correct!");
+    score++;
+  } else {
+    console.log("Incorrect!");
+  }
+}
+// calculate final percent
+const percent: number = score / totalNumber * 100;
+
+// print final score
+console.log(
+  `Game Over!\nFinalScore: ${score}/${totalNumber}(${percent.toFixed(2)}%)`,
+);
+
 console.log("\nDone.");
