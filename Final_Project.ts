@@ -4,8 +4,10 @@
  * @date 2026-01-05
  * @fileoverview Trivia game final project
  */
+// Declare variables
+// let score: number = 0;
 
-const questions = [
+const questions: string[][] = [
   // ---- Computer Science ----
   ["What does CPU stand for?", "central processing unit"],
   ["What loop is used when you know how many times to repeat?", "for"],
@@ -42,6 +44,18 @@ const questions = [
   ["What is the hardest natural substance on Earth?", "diamond"],
 ];
 
-console.log(questions);
+// shuffle function
+function shuffle(list: string[][]): void {
+  list.sort(() => Math.random() - 0.5);
+}
 
+// Shuffle array
+shuffle(questions);
+
+// input amount of questions
+const total: string =
+  prompt("How many questions would you like to answer(1-25)?") || ("25");
+
+console.log(questions);
+console.log(total);
 console.log("\nDone.");

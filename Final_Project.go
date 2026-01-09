@@ -9,10 +9,11 @@ package main
 
 import (
 	"fmt"
+	"math/rand/v2"
 )
 
 // each question has the prompt and the correct response
-var trivia = [][]string{
+var questions = [][]string{
 	// ---- Computer Science ----
 	{"What does CPU stand for?", "central processing unit"},
 	{"What loop is used when you know how many times to repeat?", "for"},
@@ -49,8 +50,24 @@ var trivia = [][]string{
 	{"What is the hardest natural substance on Earth?", "diamond"},
 }
 
+// shuffle function
+func shuffle(list [][]string) {
+	// loop through the list
+	for counter := 0; counter < len(list); counter++ {
+		// randomly pick from the list
+		loop := rand.IntN(len(list))
+		// swap the two items picked from the randomizer
+		list[counter], list[loop] = list[loop], list[counter]
+	}
+}
+
 func main() {
-	fmt.Println(trivia)
+	// shuffle questions
+	shuffle(questions)
+	fmt.Println(questions)
+	// declare variables
+	// var total int
+	// var score int = 0
 
 	fmt.Println("\nDone.")
 }
