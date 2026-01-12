@@ -74,7 +74,7 @@ func main() {
 	var totalInt int
 	var score int = 0
 	var playAgain string = "yes"
-	var grade string = ""
+	var grade string
 
 	// start replay loop
 	for playAgain == "yes" {
