@@ -101,10 +101,10 @@ func main() {
 			if input == questions[counter][1] {
 				fmt.Println("Correct!")
 				score++
-				} else {
-					fmt.Println("Incorrect!")
-				}
+			} else {
+				fmt.Println("Incorrect!")
 			}
+		}
 
 		// calculate final percent
 		var percent float64 = float64(score) / float64(totalInt) * 100
