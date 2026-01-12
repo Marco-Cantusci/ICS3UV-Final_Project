@@ -1,6 +1,6 @@
 /**
  * @author Marco Cantusci
- * @verion 1.0.0
+ * @version 2.0.0
  * @date 2026-01-05
  * @fileoverview Trivia game final project
  */
@@ -69,35 +69,71 @@ func main() {
 
 	reader := bufio.NewReader(os.Stdin)
 
-	// shuffle questions
-	shuffle(questions)
 	// declare variables
 	var totalString string
 	var totalInt int
 	var score int = 0
+	var playAgain string = "yes"
+	var grade string = ""
 
-	fmt.Print("How many questions would you like to answer(1-25)? ")
-	totalString, _ = reader.ReadString('\n')
-	totalString = strings.TrimSpace(totalString)
-	totalInt, _ = strconv.Atoi(totalString)
+	// start replay loop
+	for playAgain == "yes" {
 
-	for counter := 0; counter < totalInt; counter++ {
-		fmt.Println("\n" + questions[counter][0])
-		var input string
-		input, _ = reader.ReadString('\n')
-		input = strings.TrimSpace(input)
+		// shuffle questions
+		shuffle(questions)
 
-		input = strings.ToLower(strings.TrimSpace(input))
+		// input amount of questions
+		fmt.Print("How many questions would you like to answer(1-25)? ")
+		totalString, _ = reader.ReadString('\n')
+		totalString = strings.TrimSpace(totalString)
+		totalInt, _ = strconv.Atoi(totalString)
 
-		if input == questions[counter][1] {
-			fmt.Println("Correct!")
-			score++
+		// question loop
+		for counter := 0; counter < totalInt; counter++ {
+			fmt.Println("\n" + questions[counter][0])
+			var input string
+			input, _ = reader.ReadString('\n')
+			input = strings.TrimSpace(input)
+
+			input = strings.ToLower(strings.TrimSpace(input))
+
+			// compare users answer to question answer
+			if input == questions[counter][1] {
+				fmt.Println("Correct!")
+				score++
+				} else {
+					fmt.Println("Incorrect!")
+				}
+			}
+
+		// calculate final percent
+		var percent float64 = float64(score) / float64(totalInt) * 100
+
+		if percent >= 90 {
+			grade = "A"
+		} else if percent >= 80 {
+			grade = "B"
+		} else if percent >= 70 {
+			grade = "C"
+		} else if percent >= 60 {
+			grade = "D"
 		} else {
-			fmt.Println("Incorrect!")
+			grade = "F"
 		}
+
+		// print final score
+		fmt.Printf("\nGame Over!\nFinal Score: %d/%d(%.2f%%)\nGrade: %s\n", score, totalInt, percent, grade)
+
+		score = 0
+
+		// replay input
+		fmt.Print("Would you like to play again? (yes/no): ")
+		playAgain, _ = reader.ReadString('\n')
+		playAgain = strings.TrimSpace(playAgain)
+		playAgain = strings.ToLower(playAgain)
 	}
 
-	var percent float64 = float64(score) / float64(totalInt) * 100
-	fmt.Printf("\nGame Over!\nFinal Score: %d/%d(%.2f%%)\n", score, totalInt, percent)
+	fmt.Println("\nThanks for playing!")
+
 	fmt.Println("\nDone.")
 }

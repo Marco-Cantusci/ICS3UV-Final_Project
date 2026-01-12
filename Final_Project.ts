@@ -1,11 +1,13 @@
 /**
  * @author Marco Cantusci
- * @verion 1.0.0
+ * @version 2.0.0
  * @date 2026-01-05
  * @fileoverview Trivia game final project
  */
 // Declare variables
 let score: number = 0;
+let playAgain: string = "yes";
+let grade: string = "";
 
 const questions: string[][] = [
   // ---- Computer Science ----
@@ -26,7 +28,10 @@ const questions: string[][] = [
   ["What is the compound name for water?", "h2o"],
   ["What planet is closest to the Sun?", "mercury"],
   ["Which is the most abundant element in the universe?", "hydrogen"],
-  ["What do you call an animal that eats a variety of other organisms, including plants, animals and fungi?", "omnivore"],
+  [
+    "What do you call an animal that eats a variety of other organisms, including plants, animals and fungi?",
+    "omnivore",
+  ],
   ["What gas do humans breathe in?", "oxygen"],
 
   // ---- Geography ----
@@ -49,36 +54,60 @@ function shuffle(list: string[][]): void {
   list.sort(() => Math.random() - 0.5);
 }
 
-// Shuffle array
-shuffle(questions);
+// start replay loop
+while (playAgain == "yes") {
+  // Shuffle array
+  shuffle(questions);
 
-// input amount of questions
-const totalString: string =
-  prompt("How many questions would you like to answer(1-25)?") || ("25");
+  // input amount of questions
+  const totalString: string =
+    prompt("How many questions would you like to answer(1-25)?") || ("25");
+  const totalNumber: number = parseInt(totalString);
 
-const totalNumber: number = parseInt(totalString);
+  // question loop
+  for (let counter: number = 0; counter < totalNumber; counter++) {
+    // process user input
+    const input = prompt(questions[counter][0]);
+    if (input === null) break;
+    const userInput = input.toLowerCase().trim();
 
-// question loop
-for (let counter: number = 0; counter < totalNumber; counter++) {
-  // process user input
-  const input = prompt(questions[counter][0]);
-  if (input === null) break;
-  const userInput = input.toLowerCase().trim();
-
-  // compare users answer to question answer
-  if (userInput === questions[counter][1]) {
-    console.log("Correct!");
-    score++;
-  } else {
-    console.log("Incorrect!");
+    // compare users answer to question answer
+    if (userInput === questions[counter][1]) {
+      console.log("Correct!");
+      score++;
+    } else {
+      console.log("Incorrect!");
+    }
   }
-}
-// calculate final percent
-const percent: number = score / totalNumber * 100;
+  // calculate final percent
+  const percent: number = score / totalNumber * 100;
 
-// print final score
-console.log(
-  `Game Over!\nFinalScore: ${score}/${totalNumber}(${percent.toFixed(2)}%)`,
-);
+  if (percent >= 90) {
+    grade = "A";
+  } else if (percent >= 80) {
+    grade = "B";
+  } else if (percent >= 70) {
+    grade = "C";
+  } else if (percent >= 60) {
+    grade = "D";
+  } else {
+    grade = "F";
+  }
+
+  // print final score
+  console.log(
+    `Game Over!\nFinalScore: ${score}/${totalNumber}(${
+      percent.toFixed(2)
+    }%)\nGrade: ${grade}`,
+  );
+
+  score = 0;
+
+  // replay input
+  playAgain = (prompt("Would you like to play again? (yes/no): ") || "no")
+    .toLowerCase();
+}
+
+console.log("\nThanks for playing!");
 
 console.log("\nDone.");
